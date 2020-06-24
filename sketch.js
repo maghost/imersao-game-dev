@@ -8,7 +8,7 @@ let gameSound;
 
 function preload() {
   scenarioImage = loadImage('images/scenario/forest.png');
-  characterImage = loadImage('images/character/ninja-running.png');
+  characterImage = loadImage('images/character/witch-running.png');
   enemyImage = loadImage('images/enemies/droplet.png');
   gameSound = loadSound('sounds/soundtrack.mp3');
 }
@@ -19,20 +19,31 @@ function setup() {
 
   scenario = new Scenario(scenarioImage, 3);
 
-  character = new Character(characterImage);
-  character.animate();
-
-  const enemyWidth = 50;
-  const enemyHeight = 50;
-
-  enemy = new Enemy({
-    imageSprite: enemyImage,
+  const characterHorizontalSpriteSize = 4;
+  const characterVerticalSpriteSize = 4;
+  const characterRatio = 0.8;
+  const characterHeight = (characterImage.height / characterVerticalSpriteSize) * characterRatio;
+  character = new Character({
+    spriteRatio: characterRatio,
+    imageSprite: characterImage,
     positionX: 0,
-    positionY: width - enemyWidth,
-    spriteWidth: enemyWidth,
-    spriteHeight: enemyHeight,
-    totalHorizontalSprite: 4,
-    totalVerticalSprite: 7
+    positionY: height - characterHeight,
+    horizontalSpriteSize: characterHorizontalSpriteSize,
+    verticalSpriteSize: characterVerticalSpriteSize
+  });
+
+  const enemyHorizontalSpriteSize = 4;
+  const enemyVerticalSpriteSize = 7;
+  const enemyRatio = 0.9;
+  const enemyWidth = (enemyImage.width / enemyHorizontalSpriteSize) * enemyRatio;
+  const enemyHeight = (enemyImage.height / enemyVerticalSpriteSize) * enemyRatio;
+  enemy = new Enemy({
+    spriteRatio: enemyRatio,
+    imageSprite: enemyImage,
+    positionX: width - enemyWidth,
+    positionY: height - enemyHeight,
+    horizontalSpriteSize: enemyHorizontalSpriteSize,
+    verticalSpriteSize: enemyVerticalSpriteSize
   });
 
   gameSound.loop();
@@ -43,4 +54,7 @@ function draw() {
   scenario.move();
 
   character.show();
+
+  enemy.show();
+  enemy.move();
 }
