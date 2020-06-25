@@ -7,5 +7,9 @@ class Enemy extends SpriteAnimation {
 
   move() {
     this.positionX = this.positionX - this.moveVelocity;
+
+    if (this.positionX < -this.spriteWidthDest) {
+      this.x = width;
+    }
   }
 }
