@@ -5,18 +5,20 @@ let scenario;
 let character;
 let enemy;
 let gameSound;
+let jumpSound;
 
 function preload() {
   scenarioImage = loadImage('images/scenario/forest.png');
   characterImage = loadImage('images/character/witch-running.png');
   enemyImage = loadImage('images/enemies/droplet.png');
   gameSound = loadSound('sounds/soundtrack.mp3');
+  jumpSound = loadSound('sounds/jump.mp3');
 }
 
 function keyPressed() {
-  if (key === 'ArrowUp') {
-    character.jump();
-  }
+  const action = character.actionsByKey[key];
+
+  action && action();
 }
 
 function setup() {
@@ -29,6 +31,7 @@ function setup() {
   const characterVerticalSpriteSize = 4;
   const characterRatio = 0.8;
   character = new Character({
+    jumpSound: jumpSound,
     spriteRatio: characterRatio,
     imageSprite: characterImage,
     horizontalSpriteSize: characterHorizontalSpriteSize,
@@ -61,4 +64,8 @@ function draw() {
 
   enemy.show();
   enemy.move();
+
+  if (character.isColleded(enemy)) {
+    noLoop();
+  }
 }
