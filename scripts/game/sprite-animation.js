@@ -3,21 +3,20 @@ class SpriteAnimation {
     spriteRatio = 1,
     imageSprite,
     positionX = 0,
-    positionY,
+    positionY = 0,
     horizontalSpriteSize,
-    verticalSpriteSize,
-    velocity = 10,
-    direction = 'left'
+    verticalSpriteSize
   }) {
     this.spriteRatio = spriteRatio;
     this.imageSprite = imageSprite;
     this.positionX = positionX;
     this.positionY = positionY;
-    this.velocity = velocity;
-    this.direction = direction;
 
     this.spriteWidth = imageSprite.width / horizontalSpriteSize;
     this.spriteHeight = imageSprite.height / verticalSpriteSize;
+    this.spriteWidthDest = this.spriteWidth * this.spriteRatio;
+    this.spriteHeightDest = this.spriteHeight * this.spriteRatio;
+
     this.currentFrame = 0;
     this.spritePositions = this.getSpritePositions(horizontalSpriteSize, verticalSpriteSize);
   }
@@ -27,8 +26,8 @@ class SpriteAnimation {
       this.imageSprite,
       this.positionX,
       this.positionY,
-      this.spriteWidth * this.spriteRatio,
-      this.spriteHeight * this.spriteRatio,
+      this.spriteWidthDest,
+      this.spriteHeightDest,
       this.spritePositions[this.currentFrame][0],
       this.spritePositions[this.currentFrame][1],
       this.spriteWidth,
@@ -57,33 +56,5 @@ class SpriteAnimation {
     });
 
     return spritePositions;
-  }
-
-  move() {
-    if (!this.velocity || !this.direction) {
-      console.error('Tentando mover um personagem sem velocidade ou direção informada.');
-    }
-
-    switch (this.direction) {
-      case 'left':
-        this.positionX = this.positionX - this.velocity;
-        break;
-
-      case 'right':
-        this.positionX = this.positionX + this.velocity;
-        break;
-
-      case 'top':
-        this.positionY = this.positionY - this.velocity;
-        break;
-
-      case 'bottom':
-        this.positionY = this.positionY + this.velocity;
-        break;
-    
-      default:
-        this.positionX = this.positionX - this.velocity;
-        break;
-    }
   }
 }

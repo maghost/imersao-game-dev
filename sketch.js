@@ -13,6 +13,12 @@ function preload() {
   gameSound = loadSound('sounds/soundtrack.mp3');
 }
 
+function keyPressed() {
+  if (key === 'ArrowUp') {
+    character.jump();
+  }
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(40);
@@ -22,12 +28,9 @@ function setup() {
   const characterHorizontalSpriteSize = 4;
   const characterVerticalSpriteSize = 4;
   const characterRatio = 0.8;
-  const characterHeight = (characterImage.height / characterVerticalSpriteSize) * characterRatio;
   character = new Character({
     spriteRatio: characterRatio,
     imageSprite: characterImage,
-    positionX: 0,
-    positionY: height - characterHeight,
     horizontalSpriteSize: characterHorizontalSpriteSize,
     verticalSpriteSize: characterVerticalSpriteSize
   });
@@ -54,6 +57,7 @@ function draw() {
   scenario.move();
 
   character.show();
+  character.applyGravity();
 
   enemy.show();
   enemy.move();
