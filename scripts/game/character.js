@@ -2,9 +2,6 @@ class Character extends SpriteAnimation {
   constructor({ jumpSound, gravity = 5, jumpHeight = 50, ...rest }) {
     super(rest);
 
-    this.initialY = height - this.spriteHeightDest;
-    this.positionY = this.initialY;
-
     this.jumpSound = jumpSound;
     this.gravity = gravity;
     this.jumpHeight = jumpHeight;

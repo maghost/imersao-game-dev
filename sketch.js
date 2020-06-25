@@ -26,6 +26,7 @@ function setup() {
   frameRate(40);
 
   scenario = new Scenario(scenarioImage, 3);
+  const floorVariantY = 30;
 
   const characterHorizontalSpriteSize = 4;
   const characterVerticalSpriteSize = 4;
@@ -34,6 +35,7 @@ function setup() {
     jumpSound: jumpSound,
     spriteRatio: characterRatio,
     imageSprite: characterImage,
+    variationY: floorVariantY,
     horizontalSpriteSize: characterHorizontalSpriteSize,
     verticalSpriteSize: characterVerticalSpriteSize
   });
@@ -42,12 +44,11 @@ function setup() {
   const enemyVerticalSpriteSize = 7;
   const enemyRatio = 0.9;
   const enemyWidth = (enemyImage.width / enemyHorizontalSpriteSize) * enemyRatio;
-  const enemyHeight = (enemyImage.height / enemyVerticalSpriteSize) * enemyRatio;
   enemy = new Enemy({
     spriteRatio: enemyRatio,
     imageSprite: enemyImage,
     positionX: width - enemyWidth,
-    positionY: height - enemyHeight,
+    variationY: floorVariantY,
     horizontalSpriteSize: enemyHorizontalSpriteSize,
     verticalSpriteSize: enemyVerticalSpriteSize
   });

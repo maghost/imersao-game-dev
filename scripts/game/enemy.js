@@ -1,5 +1,5 @@
 class Enemy extends SpriteAnimation {
-  constructor({ moveVelocity = 10, ...rest }) {
+  constructor({ moveVelocity = 15, ...rest }) {
     super(rest);
 
     this.moveVelocity = moveVelocity;
