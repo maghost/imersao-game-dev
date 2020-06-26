@@ -5,7 +5,8 @@ class SpriteAnimation {
     positionX = 0,
     variationY = 0,
     horizontalSpriteSize,
-    verticalSpriteSize
+    verticalSpriteSize,
+    customSpriteSize = horizontalSpriteSize * verticalSpriteSize
   }) {
     this.imageSprite = imageSprite;
     this.spriteRatio = spriteRatio;
@@ -21,7 +22,8 @@ class SpriteAnimation {
     this.positionY = this.initialY;
 
     this.currentFrame = 0;
-    this.spritePositions = this.getSpritePositions(horizontalSpriteSize, verticalSpriteSize);
+    
+    this.spritePositions = this.getSpritePositions(horizontalSpriteSize, verticalSpriteSize, customSpriteSize);
   }
 
   show() {
@@ -48,10 +50,10 @@ class SpriteAnimation {
     }
   }
 
-  getSpritePositions(horizontalSpriteSize, verticalSpriteSize) {
-    const sprites = new Array(horizontalSpriteSize * verticalSpriteSize);
+  getSpritePositions(horizontalSpriteSize, verticalSpriteSize, customSpriteSize) {
+    const sprites = new Array(customSpriteSize || horizontalSpriteSize * verticalSpriteSize).fill();
 
-    const spritePositions = sprites.fill().map((_, index) => {
+    const spritePositions = sprites.map((_, index) => {
       const xPosition = (index % horizontalSpriteSize) * this.spriteWidth;
       const yPosition = parseInt(index / horizontalSpriteSize) * this.spriteHeight;
 
