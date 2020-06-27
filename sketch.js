@@ -10,6 +10,7 @@ let jumpSound;
 let score;
 
 const enemies = [];
+let currentEnemy;
 
 function preload() {
   scenarioImage = loadImage('images/scenario/forest.png');
@@ -52,13 +53,11 @@ function setup() {
   const enemyHorizontalSpriteSize = 4;
   const enemyVerticalSpriteSize = 7;
   const enemyRatio = 0.9;
-  const enemyWidth = (enemyImage.width / enemyHorizontalSpriteSize) * enemyRatio;
   const enemy = new Enemy({
-    moveVelocity: 10,
-    delay: 200,
+    delay: 100,
     spriteRatio: enemyRatio,
     imageSprite: enemyImage,
-    positionX: width - enemyWidth,
+    positionX: width,
     variationY: 25,
     horizontalSpriteSize: enemyHorizontalSpriteSize,
     verticalSpriteSize: enemyVerticalSpriteSize
@@ -69,11 +68,10 @@ function setup() {
   const flyingEnemyVerticalSpriteSize = 6;
   const flyingEnemyRatio = 0.9;
   const flyingEnemy = new Enemy({
-    moveVelocity: 10,
-    delay: 1500,
+    delay: 150,
     spriteRatio: flyingEnemyRatio,
     imageSprite: flyingEnemyImage,
-    positionX: width * 3,
+    positionX: width,
     variationY: height / 2,
     horizontalSpriteSize: flyingEnemyHorizontalSpriteSize,
     verticalSpriteSize: flyingEnemyVerticalSpriteSize,
@@ -85,11 +83,10 @@ function setup() {
   const bigEnemyVerticalSpriteSize = 6;
   const bigEnemyRatio = 0.8;
   const bigEnemy = new Enemy({
-    moveVelocity: 10,
-    delay: 2500,
+    delay: 200,
     spriteRatio: bigEnemyRatio,
     imageSprite: bigEnemyImage,
-    positionX: width * 4,
+    positionX: width,
     variationY: -15,
     horizontalSpriteSize: bigEnemyHorizontalSpriteSize,
     verticalSpriteSize: bigEnemyVerticalSpriteSize,
@@ -99,6 +96,8 @@ function setup() {
   enemies.push(enemy);
   enemies.push(flyingEnemy);
   enemies.push(bigEnemy);
+
+  currentEnemy = getRandomEnemy(enemies);
 }
 
 function draw() {
@@ -111,13 +110,25 @@ function draw() {
   character.show();
   character.applyGravity();
 
-  enemies.forEach(enemy => {
-    enemy.show();
-    enemy.move();
+  currentEnemy.show();
+  currentEnemy.move();
 
-    if (character.isColleded(enemy)) {
-      noLoop();
-      image(gameOverImage, (width - gameOverImage.width) / 2, (height - gameOverImage.height) / 2);
-    }
-  });
+  if (character.isColleded(currentEnemy)) {
+    noLoop();
+    image(gameOverImage, (width - gameOverImage.width) / 2, (height - gameOverImage.height) / 2);
+  }
+
+  if (!currentEnemy.isVisible) {
+    currentEnemy = getRandomEnemy(enemies);
+    currentEnemy.reinitiate();
+  }
+}
+
+function getRandomEnemy(enemies) {
+  const min = 0;
+  const max = enemies.length;
+  const index = Math.floor(Math.random() * (max - min)) + min;
+  const enemy = enemies[index];
+
+  return enemy;
 }
