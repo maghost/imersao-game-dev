@@ -12,8 +12,8 @@ class SpriteAnimation {
     this.spriteRatio = spriteRatio;
     this.spriteWidth = this.imageSprite.width / horizontalSpriteSize;
     this.spriteHeight = this.imageSprite.height / verticalSpriteSize;
-    this.spriteWidthDest = this.spriteWidth * this.spriteRatio;
-    this.spriteHeightDest = this.spriteHeight * this.spriteRatio;
+    this.spriteWidthDest = parseInt(this.spriteWidth * this.spriteRatio);
+    this.spriteHeightDest = parseInt(this.spriteHeight * this.spriteRatio);
 
     this.positionX = positionX;
     this.variationY = variationY;
