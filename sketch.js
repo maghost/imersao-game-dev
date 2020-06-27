@@ -1,20 +1,19 @@
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(40);
-
   gameSound.loop();
 
-  homepage = new Homepage();
+  currentScene = 'homescreen';
+  homescreen = new Homescreen();
   game = new Game();
+  game.setup();
 
   scenes = {
-    homepage,
+    homescreen,
     game
   };
 
-  currentScene = 'game';
-
-  game.setup();
+  managerButton = new ManagerButton('Iniciar', width / 2, height / 2);
 }
 
 function keyPressed() {
