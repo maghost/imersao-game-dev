@@ -6,3 +6,5 @@ let bigEnemyImage;
 let flyingEnemyImage;
 let gameSound;
 let jumpSound;
+let scenes;
+let currentScene;

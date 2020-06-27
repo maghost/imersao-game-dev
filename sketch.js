@@ -4,7 +4,16 @@ function setup() {
 
   gameSound.loop();
 
+  homepage = new Homepage();
   game = new Game();
+
+  scenes = {
+    homepage,
+    game
+  };
+
+  currentScene = 'game';
+
   game.setup();
 }
 
@@ -13,5 +22,5 @@ function keyPressed() {
 }
 
 function draw() {
-  game.draw();
+  scenes[currentScene].draw();
 }
