@@ -22,7 +22,7 @@ class SpriteAnimation {
     this.positionY = this.initialY;
 
     this.currentFrame = 0;
-    
+
     this.spritePositions = this.getSpritePositions(horizontalSpriteSize, verticalSpriteSize, customSpriteSize);
   }
 

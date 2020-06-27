@@ -35,7 +35,7 @@ class Character extends SpriteAnimation {
   isColleded(enemy) {
     const collisionPrecision = 0.7;
 
-    this.renderCollision(character, enemy, collisionPrecision);
+    this.renderCollision(enemy, collisionPrecision);
 
     return collideRectRect(
       this.positionX,
@@ -49,13 +49,13 @@ class Character extends SpriteAnimation {
     );
   }
 
-  renderCollision(character, enemy, collisionPrecision) {
+  renderCollision(enemy, collisionPrecision) {
     noFill();
     rect(
-      character.positionX,
-      character.positionY,
-      character.spriteWidthDest * collisionPrecision,
-      character.spriteHeightDest * collisionPrecision
+      this.positionX,
+      this.positionY,
+      this.spriteWidthDest * collisionPrecision,
+      this.spriteHeightDest * collisionPrecision
     );
     rect(
       enemy.positionX,
