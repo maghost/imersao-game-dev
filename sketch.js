@@ -3,7 +3,7 @@ function setup() {
   frameRate(40);
   gameSound.loop();
 
-  currentScene = 'homescreen';
+  currentScene = 'game';
   homescreen = new Homescreen();
   game = new Game();
   game.setup();

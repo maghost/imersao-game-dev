@@ -8,10 +8,17 @@ class Character extends SpriteAnimation {
     this.jumpVelocity = 0;
     this.jumps = 0;
     this.maxJumps = 2;
+    this.isInvencible = false;
 
     this.actionsByKey = {
       'ArrowUp': () => this.jump()
     };
+  }
+
+  temporarilyInvincible() {
+    this.isInvencible = true;
+
+    setTimeout(() => this.isInvencible = false, 1500);
   }
 
   jump() {
@@ -33,6 +40,10 @@ class Character extends SpriteAnimation {
   }
 
   isColleded(enemy) {
+    if (this.isInvencible) {
+      return false;
+    }
+
     const collisionPrecision = 0.7;
 
     this.renderCollision(enemy, collisionPrecision);

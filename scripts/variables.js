@@ -1,5 +1,6 @@
 let scenarioImage;
 let gameOverImage;
+let lifeImage;
 let characterImage;
 let enemyImage;
 let bigEnemyImage;

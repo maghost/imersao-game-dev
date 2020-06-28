@@ -2,6 +2,7 @@ function preload() {
   homescreenImage = loadImage('assets/images/homescreen.png');
   scenarioImage = loadImage('assets/images/scenario/forest.png');
   gameOverImage = loadImage('assets/images/game-over.png');
+  lifeImage = loadImage('assets/images/life.png');
   characterImage = loadImage('assets/images/character/witch-running.png');
   enemyImage = loadImage('assets/images/enemies/droplet.png');
   bigEnemyImage = loadImage('assets/images/enemies/troll.png');

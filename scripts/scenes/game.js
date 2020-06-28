@@ -5,15 +5,18 @@ class Game {
     this.score;
     this.currentEnemy;
 
+    this.map = [];
     this.enemies = [];
   }
 
   setup() {
-    this.scenario = new Scenario(scenarioImage, 3);
+    this.scenario = this.generateScenario();
     this.score = new Score();
-
+    this.life = new Life();
     this.character = this.generateCharacter();
     this.enemies = this.generateEnemies();
+    this.map = this.generateMap();
+
     this.currentEnemy = this.getRandomEnemy();
   }
 
@@ -24,15 +27,21 @@ class Game {
     this.score.show();
     this.score.addPoints();
  
+    this.life.draw();
+
     this.character.show();
     this.character.applyGravity();
   
     this.currentEnemy.show();
     this.currentEnemy.move();
+
+    if (this.life.currentLife === 0) {
+      this.gameOver();
+    }
   
     if (this.character.isColleded(this.currentEnemy)) {
-      noLoop();
-      this.gameOver();
+      this.life.removeLife();
+      this.character.temporarilyInvincible();
     }
   
     if (!this.currentEnemy.isVisible) {
@@ -47,8 +56,15 @@ class Game {
     characterAction && characterAction();
   }
 
+  generateScenario() {
+    return new Scenario({
+      image: scenarioImage,
+      velocity: 3
+    });
+  }
+
   generateCharacter() {
-    const character = new Character({
+    return new Character({
       jumpSound,
       spriteRatio: 0.8,
       imageSprite: characterImage,
@@ -56,8 +72,6 @@ class Game {
       horizontalSpriteSize: 4,
       verticalSpriteSize: 4
     });
-
-    return character;
   }
 
   generateEnemies() {
@@ -102,6 +116,27 @@ class Game {
     return enemies;
   }
 
+  generateMap() {
+    return [
+      {
+        enemy: this.enemies[0],
+        velocity: 10
+      },
+      {
+        enemy: this.enemies[2],
+        velocity: 30
+      },
+      {
+        enemy: this.enemies[2],
+        velocity: 15
+      },
+      {
+        enemy: this.enemies[1],
+        velocity: 40
+      }
+    ];
+  }
+
   getRandomEnemy() {
     const min = 0;
     const max = this.enemies.length;
@@ -112,6 +147,7 @@ class Game {
   }
 
   gameOver() {
+    noLoop();
     image(gameOverImage, (width - gameOverImage.width) / 2, (height - gameOverImage.height) / 2);
   }
 }

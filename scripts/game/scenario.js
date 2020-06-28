@@ -1,5 +1,5 @@
 class Scenario {
-  constructor(image, velocity) {
+  constructor({ image, velocity }) {
     this.image = image;
     this.velocity = velocity;
     this.x1 = 0;

@@ -1,7 +1,6 @@
 class Homescreen {
-  constructor() {}
-
   draw() {
+    console.log('Draw Homescreen');
     this._drawBackgroundImage();
     this._drawText();
     this._drawButton();
