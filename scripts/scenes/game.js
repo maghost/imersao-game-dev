@@ -3,7 +3,7 @@ class Game {
     this.scenario;
     this.score;
     this.life;
-    this.timelineMap = [];
+    this.timelineMap = gameConfig.timelineMap;
     this.indexTimelineMap = 0;
     this.itemTimelineMap;
     this.character;
@@ -15,7 +15,6 @@ class Game {
     this.scenario = this.generateScenario();
     this.score = new Score();
     this.life = new Life();
-    this.timelineMap = this.generateTimelineMap();
     this.character = this.generateCharacter();
     this.enemies = this.generateEnemies();
   }
@@ -70,27 +69,6 @@ class Game {
       image: scenarioImage,
       velocity: 3
     });
-  }
-
-  generateTimelineMap() {
-    return [
-      {
-        enemy: 0,
-        velocity: 10
-      },
-      {
-        enemy: 2,
-        velocity: 30
-      },
-      {
-        enemy: 2,
-        velocity: 15
-      },
-      {
-        enemy: 1,
-        velocity: 40
-      }
-    ];
   }
 
   generateCharacter() {

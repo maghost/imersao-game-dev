@@ -1,0 +1,24 @@
+{
+  "settings": {
+    "maxLife": 5,
+    "initialLife": 3
+  },
+  "timelineMap": [
+    {
+      "enemy": 0,
+      "velocity": 10
+    },
+    {
+      "enemy": 2,
+      "velocity": 30
+    },
+    {
+      "enemy": 2,
+      "velocity": 15
+    },
+    {
+      "enemy": 1,
+      "velocity": 40
+    }
+  ]
+}

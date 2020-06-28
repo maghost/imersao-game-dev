@@ -1,4 +1,6 @@
 function preload() {
+  gameConfig = loadJSON('game-config.json');
+
   homescreenImage = loadImage('assets/images/homescreen.png');
   scenarioImage = loadImage('assets/images/scenario/forest.png');
   gameOverImage = loadImage('assets/images/game-over.png');

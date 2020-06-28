@@ -1,3 +1,5 @@
+let gameConfig;
+
 let scenarioImage;
 let gameOverImage;
 let lifeImage;

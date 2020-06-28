@@ -1,5 +1,5 @@
 class Life {
-  constructor(maxLife = 5, initialLife = 3) {
+  constructor(maxLife = gameConfig.settings.maxLife, initialLife = gameConfig.settings.initialLife) {
     this.maxLife = maxLife;
     this.currentLife = initialLife;
 
