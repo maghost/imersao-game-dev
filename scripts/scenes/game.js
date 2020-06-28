@@ -12,6 +12,8 @@ class Game {
   }
 
   setup() {
+    collideDebug(true);
+
     this.scenario = this.generateScenario();
     this.score = new Score();
     this.life = new Life();
@@ -39,11 +41,11 @@ class Game {
     this.currentEnemy.show();
     this.currentEnemy.move();
 
-    if (this.life.currentLife === 0) {
-      this.gameOver();
-    }
+    // if (this.life.currentLife === 0) {
+    //   this.gameOver();
+    // }
 
-    if (this.character.isColleded(this.currentEnemy)) {
+    if (this.character.isCollided(this.currentEnemy)) {
       this.life.removeLife();
       this.character.temporarilyInvincible();
     }
@@ -74,11 +76,14 @@ class Game {
   generateCharacter() {
     return new Character({
       jumpSound,
-      spriteRatio: 0.8,
+      spriteRatio: 0.4,
       imageSprite: characterImage,
       variationY: 25,
-      horizontalSpriteSize: 4,
-      verticalSpriteSize: 4
+      horizontalSpriteSize: 5,
+      verticalSpriteSize: 2,
+      collision: {
+        precision: 1
+      }
     });
   }
 
@@ -91,7 +96,10 @@ class Game {
       positionX: width,
       variationY: 25,
       horizontalSpriteSize: 4,
-      verticalSpriteSize: 7
+      verticalSpriteSize: 7,
+      collision: {
+        precision: 0.7
+      }
     });
 
     const flyingEnemy = new Enemy({
@@ -101,7 +109,10 @@ class Game {
       variationY: height / 2,
       horizontalSpriteSize: 3,
       verticalSpriteSize: 6,
-      customSpriteSize: 16
+      customSpriteSize: 16,
+      collision: {
+        precision: 0.7
+      }
     });
 
     const bigEnemy = new Enemy({
@@ -111,7 +122,10 @@ class Game {
       variationY: -15,
       horizontalSpriteSize: 5,
       verticalSpriteSize: 6,
-      customSpriteSize: 28
+      customSpriteSize: 28,
+      collision: {
+        precision: 0.7
+      }
     });
 
     enemies.push(enemy);

@@ -6,7 +6,10 @@ class SpriteAnimation {
     variationY = 0,
     horizontalSpriteSize,
     verticalSpriteSize,
-    customSpriteSize = horizontalSpriteSize * verticalSpriteSize
+    customSpriteSize = horizontalSpriteSize * verticalSpriteSize,
+    collision = {
+      precision: 1
+    }
   }) {
     this.imageSprite = imageSprite;
     this.spriteRatio = spriteRatio;
@@ -14,6 +17,8 @@ class SpriteAnimation {
     this.spriteHeight = this.imageSprite.height / verticalSpriteSize;
     this.spriteWidthDest = parseInt(this.spriteWidth * this.spriteRatio);
     this.spriteHeightDest = parseInt(this.spriteHeight * this.spriteRatio);
+
+    this.collision = collision;
 
     this.positionX = positionX;
     this.variationY = variationY;

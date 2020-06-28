@@ -39,40 +39,64 @@ class Character extends SpriteAnimation {
     }
   }
 
-  isColleded(enemy) {
-    if (this.isInvencible) {
-      return false;
-    }
+  isCollided(enemy) {
+    this._renderCollision(enemy);
 
-    const collisionPrecision = 0.7;
-
-    this.renderCollision(enemy, collisionPrecision);
+    if (this.isInvencible) return false;
 
     return collideRectRect(
       this.positionX,
       this.positionY,
-      this.spriteWidthDest * collisionPrecision,
-      this.spriteHeightDest * collisionPrecision,
+      this.spriteWidthDest * this.collision.precision,
+      this.spriteHeightDest * this.collision.precision,
       enemy.positionX,
       enemy.positionY,
-      enemy.spriteWidthDest * collisionPrecision,
-      enemy.spriteHeightDest * collisionPrecision
+      enemy.spriteWidthDest * enemy.collision.precision,
+      enemy.spriteHeightDest * enemy.collision.precision
     );
   }
 
-  renderCollision(enemy, collisionPrecision) {
+  _renderCollision(enemy) {
     noFill();
+    stroke(color(this.isInvencible ? "red" : "black"));
+
+    const characterWidthCollision = this.spriteWidthDest * this.collision.precision;
+    const characterHeightCollision = this.spriteHeightDest * this.collision.precision;
     rect(
-      this.positionX,
-      this.positionY,
-      this.spriteWidthDest * collisionPrecision,
-      this.spriteHeightDest * collisionPrecision
+      this.positionX + (this.spriteWidthDest - characterWidthCollision) / 2,
+      this.positionY + (this.spriteHeightDest - characterHeightCollision) / 2,
+      this.spriteWidthDest * this.collision.precision,
+      this.spriteHeightDest * this.collision.precision
     );
+
+    if (this.collision.precision !== 0) {
+      stroke(color("blue"));
+      rect(
+        enemy.positionX,
+        enemy.positionY,
+        enemy.spriteWidthDest,
+        enemy.spriteHeightDest
+      );
+    }
+
+    stroke(color(this.isInvencible ? "red" : "black"));
+    const enemyWidthCollision = enemy.spriteWidthDest * enemy.collision.precision;
+    const enemyHeightCollision = enemy.spriteHeightDest * enemy.collision.precision;
     rect(
-      enemy.positionX,
-      enemy.positionY,
-      enemy.spriteWidthDest * collisionPrecision,
-      enemy.spriteHeightDest * collisionPrecision
+      enemy.positionX + (enemy.spriteWidthDest - enemyWidthCollision) / 2,
+      enemy.positionY + (enemy.spriteHeightDest - enemyHeightCollision) / 2,
+      enemy.spriteWidthDest * enemy.collision.precision,
+      enemy.spriteHeightDest * enemy.collision.precision
     );
+
+    if (enemy.collision.precision !== 0) {
+      stroke(color("yellow"));
+      rect(
+        enemy.positionX,
+        enemy.positionY,
+        enemy.spriteWidthDest,
+        enemy.spriteHeightDest
+      );
+    }
   }
 }
