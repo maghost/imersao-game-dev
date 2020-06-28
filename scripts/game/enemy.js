@@ -1,10 +1,9 @@
 class Enemy extends SpriteAnimation {
-  constructor({ delay = 0, moveVelocity = 10, ...rest }) {
+  constructor({ moveVelocity = 10, ...rest }) {
     super(rest);
 
     this.isVisible = true;
     this.moveVelocity = moveVelocity;
-    this.delay = delay;
   }
 
   move() {
@@ -20,7 +19,7 @@ class Enemy extends SpriteAnimation {
   }
 
   getInitialPosition() {
-    return width + this.delay;
+    return width;
   }
 
   getRandomVelocity(min = 10, max = 30) {

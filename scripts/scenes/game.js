@@ -108,7 +108,6 @@ class Game {
     const enemies = [];
 
     const enemy = new Enemy({
-      delay: 100,
       spriteRatio: 0.9,
       imageSprite: enemyImage,
       positionX: width,
@@ -118,7 +117,6 @@ class Game {
     });
 
     const flyingEnemy = new Enemy({
-      delay: 150,
       spriteRatio: 0.9,
       imageSprite: flyingEnemyImage,
       positionX: width,
@@ -129,7 +127,6 @@ class Game {
     });
 
     const bigEnemy = new Enemy({
-      delay: 200,
       spriteRatio: 0.8,
       imageSprite: bigEnemyImage,
       positionX: width,
