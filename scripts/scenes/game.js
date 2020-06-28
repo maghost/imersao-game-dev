@@ -1,23 +1,23 @@
 class Game {
   constructor() {
     this.scenario;
-    this.character;
     this.score;
-    this.currentEnemy;
-
-    this.map = [];
+    this.life;
+    this.timelineMap = [];
+    this.indexTimelineMap = 0;
+    this.itemTimelineMap;
+    this.character;
     this.enemies = [];
+    this.currentEnemy;
   }
 
   setup() {
     this.scenario = this.generateScenario();
     this.score = new Score();
     this.life = new Life();
+    this.timelineMap = this.generateTimelineMap();
     this.character = this.generateCharacter();
     this.enemies = this.generateEnemies();
-    this.map = this.generateMap();
-
-    this.currentEnemy = this.getRandomEnemy();
   }
 
   draw() {
@@ -31,22 +31,31 @@ class Game {
 
     this.character.show();
     this.character.applyGravity();
+
+    this.itemTimelineMap = this.timelineMap[this.indexTimelineMap];
   
+    this.currentEnemy = this.enemies[this.itemTimelineMap.enemy];
+    this.currentEnemy.moveVelocity = this.itemTimelineMap.velocity;
+
     this.currentEnemy.show();
     this.currentEnemy.move();
 
     if (this.life.currentLife === 0) {
       this.gameOver();
     }
-  
+
     if (this.character.isColleded(this.currentEnemy)) {
       this.life.removeLife();
       this.character.temporarilyInvincible();
     }
-  
+
     if (!this.currentEnemy.isVisible) {
-      this.currentEnemy = this.getRandomEnemy();
       this.currentEnemy.reinitiate();
+
+      this.indexTimelineMap++;
+      if (this.indexTimelineMap >= this.timelineMap.length) {
+        this.indexTimelineMap = 0;
+      }
     }
   }
 
@@ -61,6 +70,27 @@ class Game {
       image: scenarioImage,
       velocity: 3
     });
+  }
+
+  generateTimelineMap() {
+    return [
+      {
+        enemy: 0,
+        velocity: 10
+      },
+      {
+        enemy: 2,
+        velocity: 30
+      },
+      {
+        enemy: 2,
+        velocity: 15
+      },
+      {
+        enemy: 1,
+        velocity: 40
+      }
+    ];
   }
 
   generateCharacter() {
@@ -114,36 +144,6 @@ class Game {
     enemies.push(bigEnemy);
 
     return enemies;
-  }
-
-  generateMap() {
-    return [
-      {
-        enemy: this.enemies[0],
-        velocity: 10
-      },
-      {
-        enemy: this.enemies[2],
-        velocity: 30
-      },
-      {
-        enemy: this.enemies[2],
-        velocity: 15
-      },
-      {
-        enemy: this.enemies[1],
-        velocity: 40
-      }
-    ];
-  }
-
-  getRandomEnemy() {
-    const min = 0;
-    const max = this.enemies.length;
-    const index = Math.floor(Math.random() * (max - min)) + min;
-    const enemy = this.enemies[index];
-  
-    return enemy;
   }
 
   gameOver() {

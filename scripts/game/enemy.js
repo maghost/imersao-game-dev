@@ -30,6 +30,5 @@ class Enemy extends SpriteAnimation {
   reinitiate() {
     this.isVisible = true;
     this.positionX = this.getInitialPosition();
-    this.moveVelocity = this.getRandomVelocity();
   }
 }
